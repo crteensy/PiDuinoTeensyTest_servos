@@ -8,7 +8,7 @@ static const uint8_t numChannels = 8;
 typedef uint16_t servoValueType;
 static servoValueType slaveReceiveBuffer[numChannels];
 
-PulsePositionOutput ppmOut;
+PulsePositionOutput ppmOut(RISING);
 
 void rxFun(size_t len)
 {
@@ -42,7 +42,11 @@ void setup()
   Wire.begin(I2C_SLAVE, slaveAddress, I2C_PINS_16_17, I2C_PULLUP_EXT, I2C_RATE_400);
   Wire.onReceive(rxFun);
 
-  ppmOut.begin(5);  // connect pins 5 and 6 together...
+  ppmOut.begin(5, 6);  // pin 5: tx, pin 6: frame
+  for (uint8_t i = 1; i < 9; i++)
+  {
+    ppmOut.write(i, 1500.);
+  }
 }
 
 void loop()
