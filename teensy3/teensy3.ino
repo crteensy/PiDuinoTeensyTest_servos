@@ -14,6 +14,7 @@ void rxFun(size_t len)
 {
   if (len == sizeof(servoValueType)*numChannels)
   {
+    // we received values for all channels
     for (size_t i = 0; i < numChannels; i++)
     {
       uint16_t val = (((Wire.readByte() & 0xFF) << 8) | (Wire.readByte() & 0xFF));
@@ -22,9 +23,9 @@ void rxFun(size_t len)
     }
     return;
   }
-
-  if (len == (1 + sizeof(servoValueType)))
+  else if (len == (1 + sizeof(servoValueType)))
   {
+    // we received values for just one channel
     uint8_t channel = Wire.readByte();
     if (channel >= numChannels)
     {
@@ -34,6 +35,14 @@ void rxFun(size_t len)
     uint16_t val = (((Wire.readByte() & 0xFF) << 8) | (Wire.readByte() & 0xFF));
     slaveReceiveBuffer[channel] = val;
     ppmOut.write(channel+1, 1000. + 1000.*val/65535.);
+  }
+  else
+  {
+    // invalid number of bytes, discard
+    for (uint8_t i = 0; i < len; i++)
+    {
+      Wire.readByte();
+    }
   }
 }
 
