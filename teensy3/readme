@@ -1,3 +1,8 @@
 This directory contains the code that runs on the teensy.
 
-It is just an arduino sketch that should work as it is. It was developed with arduino 1.0.5 and teensyduino 1.18.
+It is just an arduino sketch that should work as it is. It was developed with
+
+- arduino 1.0.5
+- teensyduino 1.18 (https://www.pjrc.com/teensy/td_download.html)
+- PulsePosition library (https://github.com/PaulStoffregen/PulsePosition)
+- i2c_t3 library v6b (http://forum.pjrc.com/threads/21680-New-I2C-library-for-Teensy3)
