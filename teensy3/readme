@@ -1,1 +1,3 @@
 This directory contains the code that runs on the teensy.
+
+It is just an arduino sketch that should work as it is. It was developed with arduino 1.0.5 and teensyduino 1.18.
